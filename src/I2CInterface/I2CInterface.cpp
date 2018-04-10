@@ -28,7 +28,7 @@ void I2CInterface::setup()
 
   // Add Hardware
 
-  // Interrupts
+  // Pins
 
   // Add Firmware
   modular_server_.addFirmware(constants::firmware_info,

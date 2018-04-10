@@ -16,7 +16,7 @@ namespace i2c_interface
 {
 namespace constants
 {
-// Interrupts
+// Pins
 
 // Units
 
