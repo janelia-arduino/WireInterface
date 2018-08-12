@@ -3,7 +3,7 @@
 //
 //
 // Authors:
-// Peter Polidoro polidorop@janelia.hhmi.org
+// Peter Polidoro peterpolidoro@gmail.com
 // ----------------------------------------------------------------------------
 #ifndef I2C_INTERFACE_5X3_CONSTANTS_H
 #define I2C_INTERFACE_5X3_CONSTANTS_H
