@@ -20,7 +20,7 @@
 #include "I2CInterface/Constants.h"
 
 
-class I2CInterface : public Parent
+class I2CInterface : public ModularDeviceBase
 {
 public:
   I2CInterface();

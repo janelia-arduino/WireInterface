@@ -8,6 +8,8 @@
 #ifndef I2C_INTERFACE_CONSTANTS_H
 #define I2C_INTERFACE_CONSTANTS_H
 #include <ConstantVariable.h>
+#include <ModularServer.h>
+#include <Wire.h>
 
 
 namespace i2c_interface

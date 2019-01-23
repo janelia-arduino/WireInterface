@@ -16,6 +16,10 @@ namespace i2c_interface
 {
 namespace constants
 {
+enum{WIRE_COUNT=2};
+
+extern TwoWire * wire_ptrs[WIRE_COUNT];
+
 // Pins
 
 // Units

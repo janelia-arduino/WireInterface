@@ -14,6 +14,11 @@ namespace i2c_interface
 {
 namespace constants
 {
+TwoWire * wire_ptrs[WIRE_COUNT] =
+{
+  &Wire,
+  &Wire1,
+};
 // Pins
 
 // Units

@@ -17,6 +17,7 @@ I2CInterface::I2CInterface()
 void I2CInterface::setup()
 {
   // Parent Setup
+  ModularDeviceBase::setup();
 
   // Reset Watchdog
   resetWatchdog();

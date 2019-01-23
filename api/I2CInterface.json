@@ -1,0 +1,9 @@
+{
+  "id": "getApi",
+  "result": {
+    "firmware": [
+      "I2CInterface"
+    ],
+    "verbosity": "GENERAL"
+  }
+}

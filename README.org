@@ -17,6 +17,15 @@
 * API NAMES
 
   #+BEGIN_SRC js
+    {
+      "id": "getApi",
+      "result": {
+        "firmware": [
+          "I2CInterface"
+        ],
+        "verbosity": "NAMES"
+      }
+    }
   #+END_SRC
 
 * API GENERAL
