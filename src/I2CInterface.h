@@ -14,6 +14,8 @@
 #include <ConstantVariable.h>
 #include <Functor.h>
 
+#include <EventController.h>
+
 #include <ModularServer.h>
 #include <ModularDeviceBase.h>
 
@@ -26,13 +28,23 @@ public:
   I2CInterface();
   virtual void setup();
 
+protected:
+  EventController<i2c_interface::constants::EVENT_COUNT_MAX> event_controller_;
+
+  // Handlers
+  virtual void pollingHandler(int index);
+
 private:
+  modular_server::Pin pins_[i2c_interface::constants::PIN_COUNT_MAX];
+
   modular_server::Property properties_[i2c_interface::constants::PROPERTY_COUNT_MAX];
   modular_server::Parameter parameters_[i2c_interface::constants::PARAMETER_COUNT_MAX];
   modular_server::Function functions_[i2c_interface::constants::FUNCTION_COUNT_MAX];
   modular_server::Callback callbacks_[i2c_interface::constants::CALLBACK_COUNT_MAX];
 
   // Handlers
+  void setPollingEnabledHandler(size_t wire_index);
+  void setPollingPeriodHandler(size_t wire_index);
 
 };
 

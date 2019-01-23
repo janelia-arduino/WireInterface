@@ -17,22 +17,35 @@ namespace i2c_interface
 namespace constants
 {
 //MAX values must be >= 1, >= created/copied count, < RAM limit
-enum{PROPERTY_COUNT_MAX=1};
+enum{PROPERTY_COUNT_MAX=2};
 enum{PARAMETER_COUNT_MAX=1};
 enum{FUNCTION_COUNT_MAX=1};
 enum{CALLBACK_COUNT_MAX=1};
+
+enum{EVENT_COUNT_MAX=8};
 
 extern ConstantString device_name;
 
 extern ConstantString firmware_name;
 extern const modular_server::FirmwareInfo firmware_info;
 
+extern ConstantString hardware_name;
+extern const modular_server::HardwareInfo hardware_info;
+
 // Pins
 
 // Units
+extern ConstantString ms_units;
 
 // Properties
 // Property values must be long, double, bool, long[], double[], bool[], char[], ConstantString *, (ConstantString *)[]
+extern ConstantString polling_enabled_property_name;
+extern const bool polling_enabled_element_default;
+
+extern ConstantString polling_period_property_name;
+extern const long polling_period_min;
+extern const long polling_period_max;
+extern const long polling_period_element_default;
 
 // Parameters
 

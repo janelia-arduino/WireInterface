@@ -16,6 +16,9 @@ namespace i2c_interface
 {
 namespace constants
 {
+//MAX values must be >= 1, >= created/copied count, < RAM limit
+enum{PIN_COUNT_MAX=1};
+
 enum{WIRE_COUNT=1};
 
 extern TwoWire * wire_ptrs[WIRE_COUNT];
@@ -26,6 +29,9 @@ extern TwoWire * wire_ptrs[WIRE_COUNT];
 
 // Properties
 // Property values must be long, double, bool, long[], double[], bool[], char[], ConstantString *, (ConstantString *)[]
+extern const bool polling_enabled_default[WIRE_COUNT];
+
+extern const long polling_period_default[WIRE_COUNT];
 
 // Parameters
 

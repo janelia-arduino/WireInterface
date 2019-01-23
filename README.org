@@ -4,7 +4,7 @@
 
 * Library Information
   - Name :: I2CInterface
-  - Version :: 1.0.0
+  - Version :: 1.1.0
   - License :: BSD
   - URL :: https://github.com/janelia-arduino/I2CInterface
   - Author :: Peter Polidoro
@@ -17,15 +17,6 @@
 * API NAMES
 
   #+BEGIN_SRC js
-    {
-      "id": "getApi",
-      "result": {
-        "firmware": [
-          "I2CInterface"
-        ],
-        "verbosity": "NAMES"
-      }
-    }
   #+END_SRC
 
 * API GENERAL

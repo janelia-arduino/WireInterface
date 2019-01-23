@@ -22,12 +22,17 @@ void I2CInterface::setup()
   // Reset Watchdog
   resetWatchdog();
 
+  // Event Controller Setup
+  event_controller_.setup();
+
   // Variable Setup
 
   // Set Device ID
   modular_server_.setDeviceName(constants::device_name);
 
   // Add Hardware
+  modular_server_.addHardware(constants::hardware_info,
+    pins_);
 
   // Pins
 
@@ -39,12 +44,23 @@ void I2CInterface::setup()
     callbacks_);
 
   // Properties
+  modular_server::Property & polling_enabled_property = modular_server_.createProperty(constants::polling_enabled_property_name,constants::polling_enabled_default);
+  polling_enabled_property.setArrayLengthRange(constants::WIRE_COUNT,constants::WIRE_COUNT);
+  polling_enabled_property.attachPostSetElementValueFunctor(makeFunctor((Functor1<size_t> *)0,*this,&I2CInterface::setPollingEnabledHandler));
+
+  modular_server::Property & polling_period_property = modular_server_.createProperty(constants::polling_period_property_name,constants::polling_period_default);
+  polling_period_property.setArrayLengthRange(constants::WIRE_COUNT,constants::WIRE_COUNT);
+  polling_period_property.attachPostSetElementValueFunctor(makeFunctor((Functor1<size_t> *)0,*this,&I2CInterface::setPollingPeriodHandler));
 
   // Parameters
 
   // Functions
 
   // Callbacks
+}
+
+void I2CInterface::pollingHandler(int index)
+{
 }
 
 // Handlers must be non-blocking (avoid 'delay')
@@ -64,3 +80,11 @@ void I2CInterface::setup()
 // modular_server_.property(property_name).setValue(value) value type must match the property default type
 // modular_server_.property(property_name).getElementValue(element_index,value) value type must match the property array element default type
 // modular_server_.property(property_name).setElementValue(element_index,value) value type must match the property array element default type
+
+void I2CInterface::setPollingEnabledHandler(size_t wire_index)
+{
+}
+
+void I2CInterface::setPollingPeriodHandler(size_t wire_index)
+{
+}
