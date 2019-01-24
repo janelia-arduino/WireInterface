@@ -1,20 +1,20 @@
 // ----------------------------------------------------------------------------
-// I2CInterface.cpp
+// WireInterface.cpp
 //
 //
 // Authors:
 // Peter Polidoro peterpolidoro@gmail.com
 // ----------------------------------------------------------------------------
-#include "../I2CInterface.h"
+#include "../WireInterface.h"
 
 
-using namespace i2c_interface;
+using namespace wire_interface;
 
-I2CInterface::I2CInterface()
+WireInterface::WireInterface()
 {
 }
 
-void I2CInterface::setup()
+void WireInterface::setup()
 {
   // Parent Setup
   ModularDeviceBase::setup();
@@ -44,13 +44,17 @@ void I2CInterface::setup()
     callbacks_);
 
   // Properties
+  modular_server::Property & wire_count_property = modular_server_.createProperty(constants::wire_count_property_name,constants::wire_count_default);
+  wire_count_property.setRange(constants::wire_count_min,constants::WIRE_COUNT_MAX);
+  wire_count_property.attachPostSetValueFunctor(makeFunctor((Functor0 *)0,*this,&WireInterface::setWireCountHandler));
+
   modular_server::Property & polling_enabled_property = modular_server_.createProperty(constants::polling_enabled_property_name,constants::polling_enabled_default);
-  polling_enabled_property.setArrayLengthRange(constants::WIRE_COUNT,constants::WIRE_COUNT);
-  polling_enabled_property.attachPostSetElementValueFunctor(makeFunctor((Functor1<size_t> *)0,*this,&I2CInterface::updatePollingHandler));
+  polling_enabled_property.setArrayLengthRange(constants::WIRE_COUNT_MAX,constants::WIRE_COUNT_MAX);
+  polling_enabled_property.attachPostSetElementValueFunctor(makeFunctor((Functor1<size_t> *)0,*this,&WireInterface::updatePollingHandler));
 
   modular_server::Property & polling_period_property = modular_server_.createProperty(constants::polling_period_property_name,constants::polling_period_default);
-  polling_period_property.setArrayLengthRange(constants::WIRE_COUNT,constants::WIRE_COUNT);
-  polling_period_property.attachPostSetElementValueFunctor(makeFunctor((Functor1<size_t> *)0,*this,&I2CInterface::updatePollingHandler));
+  polling_period_property.setArrayLengthRange(constants::WIRE_COUNT_MAX,constants::WIRE_COUNT_MAX);
+  polling_period_property.attachPostSetElementValueFunctor(makeFunctor((Functor1<size_t> *)0,*this,&WireInterface::updatePollingHandler));
 
   // Parameters
 
@@ -59,7 +63,23 @@ void I2CInterface::setup()
   // Callbacks
 }
 
-void I2CInterface::pollingHandler(int wire_index)
+size_t WireInterface::getWireCount()
+{
+  long wire_count;
+  modular_server_.property(constants::wire_count_property_name).getValue(wire_count);
+
+  return wire_count;
+}
+
+void WireInterface::setupPolling()
+{
+  for (size_t wire_index=0; wire_index<getWireCount(); ++wire_index)
+  {
+    updatePollingHandler(wire_index);
+  }
+}
+
+void WireInterface::pollingHandler(int wire_index)
 {
 }
 
@@ -81,7 +101,19 @@ void I2CInterface::pollingHandler(int wire_index)
 // modular_server_.property(property_name).getElementValue(element_index,value) value type must match the property array element default type
 // modular_server_.property(property_name).setElementValue(element_index,value) value type must match the property array element default type
 
-void I2CInterface::updatePollingHandler(size_t wire_index)
+void WireInterface::setWireCountHandler()
+{
+  size_t wire_count = getWireCount();
+
+  modular_server::Property & polling_enabled_property = modular_server_.property(constants::polling_enabled_property_name);
+  polling_enabled_property.setArrayLengthRange(wire_count,wire_count);
+
+  modular_server::Property & polling_period_property = modular_server_.property(constants::polling_period_property_name);
+  polling_period_property.setArrayLengthRange(wire_count,wire_count);
+
+}
+
+void WireInterface::updatePollingHandler(size_t wire_index)
 {
   bool polling_enabled;
   modular_server::Property & polling_enabled_property = modular_server_.property(constants::polling_enabled_property_name);
@@ -96,7 +128,7 @@ void I2CInterface::updatePollingHandler(size_t wire_index)
     modular_server::Property & polling_period_property = modular_server_.property(constants::polling_period_property_name);
     polling_period_property.getElementValue(wire_index,polling_period);
 
-    polling_event = event_controller_.addInfiniteRecurringEventUsingDelay(makeFunctor((Functor1<int> *)0,*this,&I2CInterface::pollingHandler),
+    polling_event = event_controller_.addInfiniteRecurringEventUsingDelay(makeFunctor((Functor1<int> *)0,*this,&WireInterface::pollingHandler),
       polling_period,
       polling_period,
       wire_index);

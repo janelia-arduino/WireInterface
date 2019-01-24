@@ -10,7 +10,7 @@
 
 #if defined(__MK20DX256__)
 
-namespace i2c_interface
+namespace wire_interface
 {
 namespace constants
 {
@@ -22,7 +22,7 @@ const modular_server::HardwareInfo hardware_info =
   .version_minor=0,
 };
 
-TwoWire * wire_ptrs[WIRE_COUNT] =
+TwoWire * wire_ptrs[WIRE_COUNT_MAX] =
 {
   &Wire,
 };
@@ -31,13 +31,15 @@ TwoWire * wire_ptrs[WIRE_COUNT] =
 // Units
 
 // Properties
-const bool polling_enabled_default[WIRE_COUNT] =
+const long wire_count_default = WIRE_COUNT_MAX;
+
+const bool polling_enabled_default[WIRE_COUNT_MAX] =
 {
   polling_enabled_element_default,
 };
 
-const long polling_period_min = WIRE_COUNT;
-const long polling_period_default[WIRE_COUNT] =
+const long polling_period_min = WIRE_COUNT_MAX;
+const long polling_period_default[WIRE_COUNT_MAX] =
 {
   polling_period_element_default,
 };

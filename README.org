@@ -1,12 +1,12 @@
-#+TITLE: I2CInterface
+#+TITLE: WireInterface
 #+AUTHOR: Peter Polidoro
 #+EMAIL: peterpolidoro@gmail.com
 
 * Library Information
-  - Name :: I2CInterface
-  - Version :: 1.1.0
+  - Name :: WireInterface
+  - Version :: 1.2.0
   - License :: BSD
-  - URL :: https://github.com/janelia-arduino/I2CInterface
+  - URL :: https://github.com/janelia-arduino/WireInterface
   - Author :: Peter Polidoro
   - Email :: peterpolidoro@gmail.com
 
@@ -21,10 +21,11 @@
       "id": "getApi",
       "result": {
         "firmware": [
-          "I2CInterface"
+          "WireInterface"
         ],
         "verbosity": "NAMES",
         "properties": [
+          "wireCount",
           "pollingEnabled",
           "pollingPeriod"
         ]
@@ -48,7 +49,7 @@
 
   [[https://github.com/janelia-modular-devices/modular_device_base]]
 
-  [[https://github.com/janelia-modular-devices/i2c_interface]]
+  [[https://github.com/janelia-modular-devices/wire_interface]]
 
 * More Detailed Modular Device Information
 

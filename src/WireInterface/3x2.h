@@ -1,27 +1,27 @@
 // ----------------------------------------------------------------------------
-// 5x3.h
+// 3x2.h
 //
 //
 // Authors:
 // Peter Polidoro peterpolidoro@gmail.com
 // ----------------------------------------------------------------------------
-#ifndef I2C_INTERFACE_5X3_CONSTANTS_H
-#define I2C_INTERFACE_5X3_CONSTANTS_H
+#ifndef WIRE_INTERFACE_3X2_CONSTANTS_H
+#define WIRE_INTERFACE_3X2_CONSTANTS_H
 #include "Constants.h"
 
 
-#if defined(__MK64FX512__)
+#if defined(__MK20DX256__)
 
-namespace i2c_interface
+namespace wire_interface
 {
 namespace constants
 {
 //MAX values must be >= 1, >= created/copied count, < RAM limit
 enum{PIN_COUNT_MAX=1};
 
-enum{WIRE_COUNT=2};
+enum{WIRE_COUNT_MAX=1};
 
-extern TwoWire * wire_ptrs[WIRE_COUNT];
+extern TwoWire * wire_ptrs[WIRE_COUNT_MAX];
 
 // Pins
 
@@ -29,9 +29,9 @@ extern TwoWire * wire_ptrs[WIRE_COUNT];
 
 // Properties
 // Property values must be long, double, bool, long[], double[], bool[], char[], ConstantString *, (ConstantString *)[]
-extern const bool polling_enabled_default[WIRE_COUNT];
+extern const bool polling_enabled_default[WIRE_COUNT_MAX];
 
-extern const long polling_period_default[WIRE_COUNT];
+extern const long polling_period_default[WIRE_COUNT_MAX];
 
 // Parameters
 

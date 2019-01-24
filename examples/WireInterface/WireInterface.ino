@@ -1,7 +1,7 @@
-#include <I2CInterface.h>
+#include <WireInterface.h>
 
 
-I2CInterface dev;
+WireInterface dev;
 
 void setup()
 {

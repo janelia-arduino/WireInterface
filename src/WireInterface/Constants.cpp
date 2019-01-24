@@ -8,23 +8,23 @@
 #include "Constants.h"
 
 
-namespace i2c_interface
+namespace wire_interface
 {
 namespace constants
 {
-CONSTANT_STRING(device_name,"i2c_interface");
+CONSTANT_STRING(device_name,"wire_interface");
 
-CONSTANT_STRING(firmware_name,"I2CInterface");
+CONSTANT_STRING(firmware_name,"WireInterface");
 // Use semantic versioning http://semver.org/
 const modular_server::FirmwareInfo firmware_info =
 {
   .name_ptr=&firmware_name,
   .version_major=1,
-  .version_minor=1,
+  .version_minor=2,
   .version_patch=0,
 };
 
-CONSTANT_STRING(hardware_name,"i2c_interface");
+CONSTANT_STRING(hardware_name,"wire_interface");
 
 // Pins
 
@@ -32,6 +32,9 @@ CONSTANT_STRING(hardware_name,"i2c_interface");
 CONSTANT_STRING(ms_units,"ms");
 
 // Properties
+CONSTANT_STRING(wire_count_property_name,"wireCount");
+const long wire_count_min = 1;
+
 CONSTANT_STRING(polling_enabled_property_name,"pollingEnabled");
 const bool polling_enabled_element_default = false;
 

@@ -5,19 +5,19 @@
 // Authors:
 // Peter Polidoro peterpolidoro@gmail.com
 // ----------------------------------------------------------------------------
-#ifndef I2C_INTERFACE_CONSTANTS_H
-#define I2C_INTERFACE_CONSTANTS_H
+#ifndef WIRE_INTERFACE_CONSTANTS_H
+#define WIRE_INTERFACE_CONSTANTS_H
 #include <ConstantVariable.h>
 #include <ModularServer.h>
 #include <Wire.h>
 
 
-namespace i2c_interface
+namespace wire_interface
 {
 namespace constants
 {
 //MAX values must be >= 1, >= created/copied count, < RAM limit
-enum{PROPERTY_COUNT_MAX=2};
+enum{PROPERTY_COUNT_MAX=3};
 enum{PARAMETER_COUNT_MAX=1};
 enum{FUNCTION_COUNT_MAX=1};
 enum{CALLBACK_COUNT_MAX=1};
@@ -39,6 +39,10 @@ extern ConstantString ms_units;
 
 // Properties
 // Property values must be long, double, bool, long[], double[], bool[], char[], ConstantString *, (ConstantString *)[]
+extern ConstantString wire_count_property_name;
+extern const long wire_count_min;
+extern const long wire_count_default;
+
 extern ConstantString polling_enabled_property_name;
 extern const bool polling_enabled_element_default;
 
