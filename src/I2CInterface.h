@@ -32,7 +32,7 @@ protected:
   EventController<i2c_interface::constants::EVENT_COUNT_MAX> event_controller_;
 
   // Handlers
-  virtual void pollingHandler(int index);
+  virtual void pollingHandler(int wire_index);
 
 private:
   modular_server::Pin pins_[i2c_interface::constants::PIN_COUNT_MAX];
@@ -42,9 +42,10 @@ private:
   modular_server::Function functions_[i2c_interface::constants::FUNCTION_COUNT_MAX];
   modular_server::Callback callbacks_[i2c_interface::constants::CALLBACK_COUNT_MAX];
 
+  EventId polling_events_[i2c_interface::constants::WIRE_COUNT];
+
   // Handlers
-  void setPollingEnabledHandler(size_t wire_index);
-  void setPollingPeriodHandler(size_t wire_index);
+  void updatePollingHandler(size_t wire_index);
 
 };
 

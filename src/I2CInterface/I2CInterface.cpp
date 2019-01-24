@@ -46,11 +46,11 @@ void I2CInterface::setup()
   // Properties
   modular_server::Property & polling_enabled_property = modular_server_.createProperty(constants::polling_enabled_property_name,constants::polling_enabled_default);
   polling_enabled_property.setArrayLengthRange(constants::WIRE_COUNT,constants::WIRE_COUNT);
-  polling_enabled_property.attachPostSetElementValueFunctor(makeFunctor((Functor1<size_t> *)0,*this,&I2CInterface::setPollingEnabledHandler));
+  polling_enabled_property.attachPostSetElementValueFunctor(makeFunctor((Functor1<size_t> *)0,*this,&I2CInterface::updatePollingHandler));
 
   modular_server::Property & polling_period_property = modular_server_.createProperty(constants::polling_period_property_name,constants::polling_period_default);
   polling_period_property.setArrayLengthRange(constants::WIRE_COUNT,constants::WIRE_COUNT);
-  polling_period_property.attachPostSetElementValueFunctor(makeFunctor((Functor1<size_t> *)0,*this,&I2CInterface::setPollingPeriodHandler));
+  polling_period_property.attachPostSetElementValueFunctor(makeFunctor((Functor1<size_t> *)0,*this,&I2CInterface::updatePollingHandler));
 
   // Parameters
 
@@ -59,7 +59,7 @@ void I2CInterface::setup()
   // Callbacks
 }
 
-void I2CInterface::pollingHandler(int index)
+void I2CInterface::pollingHandler(int wire_index)
 {
 }
 
@@ -81,10 +81,25 @@ void I2CInterface::pollingHandler(int index)
 // modular_server_.property(property_name).getElementValue(element_index,value) value type must match the property array element default type
 // modular_server_.property(property_name).setElementValue(element_index,value) value type must match the property array element default type
 
-void I2CInterface::setPollingEnabledHandler(size_t wire_index)
+void I2CInterface::updatePollingHandler(size_t wire_index)
 {
-}
+  bool polling_enabled;
+  modular_server::Property & polling_enabled_property = modular_server_.property(constants::polling_enabled_property_name);
+  polling_enabled_property.getElementValue(wire_index,polling_enabled);
 
-void I2CInterface::setPollingPeriodHandler(size_t wire_index)
-{
+  EventId & polling_event = polling_events_[wire_index];
+  event_controller_.remove(polling_event);
+
+  if (polling_enabled)
+  {
+    long polling_period;
+    modular_server::Property & polling_period_property = modular_server_.property(constants::polling_period_property_name);
+    polling_period_property.getElementValue(wire_index,polling_period);
+
+    polling_event = event_controller_.addInfiniteRecurringEventUsingDelay(makeFunctor((Functor1<int> *)0,*this,&I2CInterface::pollingHandler),
+      polling_period,
+      polling_period,
+      wire_index);
+    event_controller_.enable(polling_event);
+  }
 }

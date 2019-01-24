@@ -38,6 +38,7 @@ const bool polling_enabled_default[WIRE_COUNT] =
   polling_enabled_element_default,
 };
 
+const long polling_period_min = WIRE_COUNT;
 const long polling_period_default[WIRE_COUNT] =
 {
   polling_period_element_default,

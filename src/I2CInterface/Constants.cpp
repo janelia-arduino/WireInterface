@@ -36,7 +36,6 @@ CONSTANT_STRING(polling_enabled_property_name,"pollingEnabled");
 const bool polling_enabled_element_default = false;
 
 CONSTANT_STRING(polling_period_property_name,"pollingPeriod");
-const long polling_period_min = 1;
 const long polling_period_max = 3600;
 const long polling_period_element_default = 100;
 

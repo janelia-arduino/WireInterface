@@ -17,6 +17,19 @@
 * API NAMES
 
   #+BEGIN_SRC js
+    {
+      "id": "getApi",
+      "result": {
+        "firmware": [
+          "I2CInterface"
+        ],
+        "verbosity": "NAMES",
+        "properties": [
+          "pollingEnabled",
+          "pollingPeriod"
+        ]
+      }
+    }
   #+END_SRC
 
 * API GENERAL
