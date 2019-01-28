@@ -29,6 +29,7 @@ public:
   virtual void setup();
 
   virtual size_t getWireCount();
+  virtual size_t getDeviceCount(size_t wire_index);
 
   void setupPolling();
 
@@ -36,7 +37,8 @@ protected:
   EventController<wire_interface::constants::EVENT_COUNT_MAX> event_controller_;
 
   // Handlers
-  void setWireCountHandler();
+  virtual void setWireCountHandler();
+  virtual void setDeviceCountHandler(size_t wire_index);
   virtual void pollingHandler(int wire_index);
 
 private:

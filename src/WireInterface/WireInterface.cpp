@@ -48,6 +48,11 @@ void WireInterface::setup()
   wire_count_property.setRange(constants::wire_count_min,constants::WIRE_COUNT_MAX);
   wire_count_property.attachPostSetValueFunctor(makeFunctor((Functor0 *)0,*this,&WireInterface::setWireCountHandler));
 
+  modular_server::Property & device_count_property = modular_server_.createProperty(constants::device_count_property_name,constants::device_count_default);
+  device_count_property.setRange(constants::device_count_min,constants::device_count_max);
+  device_count_property.setArrayLengthRange(constants::WIRE_COUNT_MAX,constants::WIRE_COUNT_MAX);
+  device_count_property.attachPostSetElementValueFunctor(makeFunctor((Functor1<size_t> *)0,*this,&WireInterface::setDeviceCountHandler));
+
   modular_server::Property & polling_enabled_property = modular_server_.createProperty(constants::polling_enabled_property_name,constants::polling_enabled_default);
   polling_enabled_property.setArrayLengthRange(constants::WIRE_COUNT_MAX,constants::WIRE_COUNT_MAX);
   polling_enabled_property.attachPostSetElementValueFunctor(makeFunctor((Functor1<size_t> *)0,*this,&WireInterface::updatePollingHandler));
@@ -71,16 +76,25 @@ size_t WireInterface::getWireCount()
   return wire_count;
 }
 
+size_t WireInterface::getDeviceCount(size_t wire_index)
+{
+  if (wire_index >= constants::WIRE_COUNT_MAX)
+  {
+    return 0;
+  }
+  long device_count;
+  modular_server_.property(constants::device_count_property_name).getElementValue(wire_index,
+    device_count);
+
+  return device_count;
+}
+
 void WireInterface::setupPolling()
 {
   for (size_t wire_index=0; wire_index<getWireCount(); ++wire_index)
   {
     updatePollingHandler(wire_index);
   }
-}
-
-void WireInterface::pollingHandler(int wire_index)
-{
 }
 
 // Handlers must be non-blocking (avoid 'delay')
@@ -105,12 +119,23 @@ void WireInterface::setWireCountHandler()
 {
   size_t wire_count = getWireCount();
 
+  modular_server::Property & device_count_property = modular_server_.property(constants::device_count_property_name);
+  device_count_property.setArrayLengthRange(wire_count,wire_count);
+
   modular_server::Property & polling_enabled_property = modular_server_.property(constants::polling_enabled_property_name);
   polling_enabled_property.setArrayLengthRange(wire_count,wire_count);
 
   modular_server::Property & polling_period_property = modular_server_.property(constants::polling_period_property_name);
   polling_period_property.setArrayLengthRange(wire_count,wire_count);
 
+}
+
+void WireInterface::setDeviceCountHandler(size_t wire_index)
+{
+}
+
+void WireInterface::pollingHandler(int wire_index)
+{
 }
 
 void WireInterface::updatePollingHandler(size_t wire_index)

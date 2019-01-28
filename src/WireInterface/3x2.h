@@ -29,6 +29,8 @@ extern TwoWire * wire_ptrs[WIRE_COUNT_MAX];
 
 // Properties
 // Property values must be long, double, bool, long[], double[], bool[], char[], ConstantString *, (ConstantString *)[]
+extern const long device_count_default[WIRE_COUNT_MAX];
+
 extern const bool polling_enabled_default[WIRE_COUNT_MAX];
 
 extern const long polling_period_default[WIRE_COUNT_MAX];

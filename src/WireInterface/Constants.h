@@ -17,7 +17,7 @@ namespace wire_interface
 namespace constants
 {
 //MAX values must be >= 1, >= created/copied count, < RAM limit
-enum{PROPERTY_COUNT_MAX=3};
+enum{PROPERTY_COUNT_MAX=4};
 enum{PARAMETER_COUNT_MAX=1};
 enum{FUNCTION_COUNT_MAX=1};
 enum{CALLBACK_COUNT_MAX=1};
@@ -42,6 +42,11 @@ extern ConstantString ms_units;
 extern ConstantString wire_count_property_name;
 extern const long wire_count_min;
 extern const long wire_count_default;
+
+extern ConstantString device_count_property_name;
+extern const long device_count_min;
+extern const long device_count_max;
+extern const long device_count_element_default;
 
 extern ConstantString polling_enabled_property_name;
 extern const bool polling_enabled_element_default;

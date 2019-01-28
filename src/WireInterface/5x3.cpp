@@ -34,6 +34,12 @@ TwoWire * wire_ptrs[WIRE_COUNT_MAX] =
 // Properties
 const long wire_count_default = WIRE_COUNT_MAX;
 
+const long device_count_default[WIRE_COUNT_MAX] =
+{
+  device_count_element_default,
+  device_count_element_default,
+};
+
 const bool polling_enabled_default[WIRE_COUNT_MAX] =
 {
   polling_enabled_element_default,
