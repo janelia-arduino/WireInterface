@@ -3,7 +3,7 @@
 //
 //
 // Authors:
-// Peter Polidoro peterpolidoro@gmail.com
+// Peter Polidoro peter@polidoro.io
 // ----------------------------------------------------------------------------
 #ifndef WIRE_INTERFACE_CONSTANTS_H
 #define WIRE_INTERFACE_CONSTANTS_H
